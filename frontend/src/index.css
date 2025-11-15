@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+  --container-padding: 10rem;
+}

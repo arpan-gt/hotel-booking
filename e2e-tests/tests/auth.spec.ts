@@ -6,14 +6,14 @@ test("should allow the user to sign in", async ({ page }) => {
   // get sign in button
   await page.getByRole("link", { name: "Sign In" }).click();
 
-  await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
+  expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
 
   await page.locator("[name=email]").fill("1@1.com");
 
   await page.locator("[name=password]").fill("e2ee2e");
 
   await page.getByRole("button", { name: "Login" }).click();
-  await page.waitForURL("http://localhost:5173/");
+  await page.waitForURL("**/");
   await expect(page.getByText("Signed In Successfully")).toBeVisible();
 
   await expect(page.getByRole("link", { name: "My Bookings" })).toBeVisible();
@@ -32,7 +32,7 @@ test("should allow user to register", async ({ page }) => {
   await page.getByRole("link", { name: "Create an account here" }).click();
 
   await expect(
-    await page.getByRole("heading", { name: "Create an Account" })
+    page.getByRole("heading", { name: "Create an Account" })
   ).toBeVisible();
 
   await page.getByLabel("First Name").fill("test_firstName");
@@ -41,7 +41,7 @@ test("should allow user to register", async ({ page }) => {
   await page.getByLabel("Password", { exact: true }).fill("password123");
   await page.getByLabel("Confirm Password").fill("password123");
 
-  await page.getByRole("button", { name: "Create  Account" }).click();
+  await page.getByRole("button", { name: "Create Account" }).click();
 
   await expect(page.getByText("Registration Success!")).toBeVisible();
   await expect(page.getByRole("link", { name: "My Bookings" })).toBeVisible();

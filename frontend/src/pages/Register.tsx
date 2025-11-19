@@ -60,24 +60,24 @@ const Register = () => {
             id="firstName"
             {...register("firstName", { required: "This field is required" })}
           ></input>
+          {errors.firstName && (
+            <span className="text-red-500 text-sm">
+              {errors.firstName.message}
+            </span>
+          )}
         </label>
-        {errors.firstName && (
-          <span className="text-red-500 text-sm">
-            {errors.firstName.message}
-          </span>
-        )}
         <label className="text-gray-700 text-sm font-bold flex-1">
           Last Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
             {...register("lastName", { required: "This field is required" })}
           ></input>
+          {errors.lastName && (
+            <span className="text-red-500 text-sm">
+              {errors.lastName.message}
+            </span>
+          )}
         </label>
-        {errors.lastName && (
-          <span className="text-red-500 text-sm">
-            {errors.lastName.message}
-          </span>
-        )}
       </div>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Email
@@ -85,10 +85,10 @@ const Register = () => {
           className="border rounded w-full py-1 px-2 font-normal"
           {...register("email", { required: "This field is required" })}
         ></input>
+        {errors.email && (
+          <span className="text-red-500 text-sm">{errors.email.message}</span>
+        )}
       </label>
-      {errors.email && (
-        <span className="text-red-500 text-sm">{errors.email.message}</span>
-      )}
       <label className="text-gray-700 text-sm font-bold flex-1">
         Password
         <input
@@ -102,10 +102,12 @@ const Register = () => {
             },
           })}
         ></input>
+        {errors.password && (
+          <span className="text-red-500 text-sm">
+            {errors.password.message}
+          </span>
+        )}
       </label>
-      {errors.password && (
-        <span className="text-red-500 text-sm">{errors.password.message}</span>
-      )}
       <label className="text-gray-700 text-sm font-bold flex-1">
         Confirm Password
         <input
@@ -121,12 +123,12 @@ const Register = () => {
             },
           })}
         ></input>
+        {errors.confirmPassword && (
+          <span className="text-red-500 text-sm">
+            {errors.confirmPassword.message}
+          </span>
+        )}
       </label>
-      {errors.confirmPassword && (
-        <span className="text-red-500 text-sm">
-          {errors.confirmPassword.message}
-        </span>
-      )}
       <span>
         <button
           type="submit"

@@ -34,6 +34,7 @@ app.use("/api/my-hotels", myHotelRoutes);
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
+
 app.listen(8080, async () => {
   console.log("listening to port 8080 ");
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);

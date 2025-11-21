@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole("link", { name: "Sign In" }).click();
   await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
 
-  await page.locator("[name=email]").fill("dummy@gmail.com");
+  await page.locator("[name=email]").fill("dummy1@gmail.com");
   await page.locator("[name=password]").fill("dummy1");
 
   await page.getByRole("button", { name: "Login" }).click();
@@ -54,15 +54,13 @@ test("should display hotels", async ({ page }) => {
   await page.goto(`${UI_URL}my-hotels`);
 
   await expect(
-    page.getByRole("heading", { name: "internation hotel" }).first()
+    page.getByRole("heading", { name: "New Hotel International" }).first()
   ).toBeVisible();
 
-  await expect(
-    page.getByText("Lorem ipsum dolor sit amet").first()
-  ).toBeVisible();
+  await expect(page.getByText("dknsjkcnjdsnclfdslkkl").first()).toBeVisible();
 
   await expect(page.getByText("Budget").first()).toBeVisible();
-  await expect(page.getByText("$498 per night").first()).toBeVisible();
+  await expect(page.getByText("$150 per night").first()).toBeVisible();
   await expect(page.getByText("2 adults, 0 children").first()).toBeVisible();
   await expect(page.getByText("4 Star Rating").first()).toBeVisible();
 
@@ -72,4 +70,22 @@ test("should display hotels", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "Add Hotel" }).first()
   ).toBeVisible();
+});
+
+test("should edit hotel", async ({ page }) => {
+  await page.goto(`${UI_URL}my-hotels`);
+
+  // Target the first hotel's View Details
+  await page.getByRole("link", { name: "View Details" }).first().click();
+
+  await page.waitForSelector('[name="name"]', { state: "attached" });
+
+  await expect(page.locator('[name="name"]')).toHaveValue(
+    "New Hotel International"
+  );
+
+  await page.locator('[name="name"]').fill("New Hotel International Updated");
+  await page.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Hotel Saved!")).toBeVisible({ timeout: 10000 });
 });

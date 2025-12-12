@@ -70,3 +70,4 @@ const MyHotels = () => {
 };
 
 export default MyHotels;
+  

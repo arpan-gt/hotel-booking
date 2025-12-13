@@ -151,12 +151,22 @@ export const searchHotels = async (
   );
 
   searchParams.types?.forEach((type) => queryParams.append("types", type));
- 
+
   searchParams.stars?.forEach((star) => queryParams.append("stars", star));
 
   const response = await fetch(
     `${API_BASE_URL}/api/hotels/search?${queryParams}`
   );
+
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+
+  return response.json();
+};
+
+export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
 
   if (!response.ok) {
     throw new Error("Error fetching hotels");

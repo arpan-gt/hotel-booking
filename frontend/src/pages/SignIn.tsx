@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export type signInFormData = {
   email: string;
@@ -13,6 +13,8 @@ const SignIn = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { showToast } = useAppContext();
+  const location = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -25,7 +27,7 @@ const SignIn = () => {
       console.log("user has been signed in");
       showToast({ message: "Signed In Successfully", type: "SUCCESS" });
       await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
-      navigate("/");
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error: Error) => {
       showToast({
@@ -34,7 +36,7 @@ const SignIn = () => {
       });
     },
   });
-
+            
   const onSubmit = handleSubmit((data) => {
     mutation.mutate(data);
   });

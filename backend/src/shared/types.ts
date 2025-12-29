@@ -1,6 +1,16 @@
+import mongoose from "mongoose";
+
+export type UserType = {
+  _id: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
 export type HotelType = {
   _id: string;
-  userId: string;
+  userId: mongoose.Types.ObjectId;
   name: string;
   city: string;
   country: string;
@@ -13,6 +23,20 @@ export type HotelType = {
   starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
+  bookings: BookingType[];
+};
+
+export type BookingType = {
+  _id: string;
+  userId: mongoose.Types.ObjectId;
+  firstName: string;
+  lastName: string;
+  email: string;
+  adultCount: number;
+  childCount: number;
+  checkIn: Date;
+  checkOut: Date;
+  totalCost: number;
 };
 
 export type HotelSearchResponse = {
@@ -22,4 +46,10 @@ export type HotelSearchResponse = {
     page: number;
     pages: number;
   };
+};
+
+export type paymentIntentResponse = {
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost: number;
 };

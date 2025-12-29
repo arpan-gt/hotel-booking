@@ -28,7 +28,9 @@ const EditHotel = () => {
     mutation.mutate(hotelFormData);
   };
 
-  return <ManageHotelForm hotel={hotel} onSave={handleSave} />;
+  return (
+    <ManageHotelForm hotel={hotel} onSave={handleSave} isLoading={false} />
+  );
 };
 
 export default EditHotel;

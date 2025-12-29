@@ -5,6 +5,7 @@ import Hotel from "../models/hotel";
 import { HotelType } from "../shared/types";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
+import mongoose from "mongoose";
 const router = express.Router();
 
 const storage = multer.memoryStorage();
@@ -44,7 +45,7 @@ router.post(
 
       newHotel.imageUrls = imageUrls;
       newHotel.lastUpdated = new Date();
-      newHotel.userId = req.userId;
+      newHotel.userId = new mongoose.Types.ObjectId(req.userId);
 
       const hotel = new Hotel(newHotel);
       await hotel.save();

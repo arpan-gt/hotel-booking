@@ -2,20 +2,27 @@ import React, { useContext, useState } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "@tanstack/react-query";
 import * as apiClient from "../api-client";
+import { loadStripe, type Stripe } from "@stripe/stripe-js";
+
+const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || "";
+
 type ToastMessage = {
   message: string;
   type: "SUCCESS" | "ERROR";
 };
 
-type AppContext = {
+type AppContextType = {
   showToast: (toastMessage: ToastMessage) => void;
   isLoggedIn: boolean;
+  stripePromise: Promise<Stripe | null>;
 };
 
-const AppContext = React.createContext<AppContext | undefined>(undefined);
+const AppContext = React.createContext<AppContextType | undefined>(undefined);
+
+const stripePromise = loadStripe(STRIPE_PUB_KEY);
 
 export const AppContextProvider = ({
-  children, 
+  children,
 }: {
   children: React.ReactNode;
 }) => {
@@ -34,6 +41,7 @@ export const AppContextProvider = ({
           setToast(toastMessage);
         },
         isLoggedIn: !isError,
+        stripePromise,
       }}
     >
       {toast && (
@@ -48,8 +56,10 @@ export const AppContextProvider = ({
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => {
   const context = useContext(AppContext);
-  return context as AppContext;
+  if (!context) {
+    throw new Error("useAppCOntext must be used within an AppContextProvider");
+  }
+  return context;
 };

@@ -9,6 +9,7 @@ import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 import myHotelRoutes from "./routes/my-hotels";
 import hotelRoutes from "./routes/hotels";
+import bookingRoutes from "./routes/my-bookings";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
@@ -32,12 +33,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 app.use("/api/hotels", hotelRoutes);
-
+app.use("/api/my-booking", bookingRoutes);
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 app.listen(8080, async () => {
   console.log("listening to port 8080 ");
-  await mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
+  await mongoose
+    .connect(process.env.MONGODB_CONNECTION_STRING as string)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log(err));
 });

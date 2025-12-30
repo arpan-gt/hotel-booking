@@ -4,6 +4,7 @@ import { param, validationResult } from "express-validator";
 import Stripe from "stripe";
 import verifyToken from "../middleware/auth";
 import { BookingType } from "../shared/types";
+import mongoose from "mongoose";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
@@ -158,7 +159,7 @@ router.post(
 
       const newBooking: BookingType = {
         ...req.body,
-        userId: req.userId,
+        userId: new mongoose.Types.ObjectId(req.userId),
       };
 
       const hotel = await Hotel.findOneAndUpdate(

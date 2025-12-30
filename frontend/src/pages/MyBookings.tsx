@@ -2,10 +2,18 @@ import * as apiClient from "../api-client";
 import { useQuery } from "@tanstack/react-query";
 
 const MyBookings = () => {
-  const { data: hotels } = useQuery({
+  const { data: hotels, isLoading, error, isError } = useQuery({
     queryKey: ["fetchMyBookings"],
     queryFn: apiClient.fetchMyBookings,
   });
+
+  if (isLoading) {
+    return <span>Loading bookings...</span>;
+  }
+
+  if (isError) {
+    return <span>Error fetching bookings: {error.message}</span>;
+  }
 
   if (!hotels || hotels.length === 0) {
     return <span>No bookings found</span>;

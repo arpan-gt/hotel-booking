@@ -32,8 +32,13 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
 
       const hotelWithUserBookings: HotelType = {
         ...hotel.toObject(),
-        bookings: userBookings,
+        userId: hotel.userId.toString(),
+        bookings: userBookings.map((booking) => ({
+          ...booking.toObject(),
+          userId: booking.userId.toString(),
+        })),
       };
+
       return hotelWithUserBookings;
     });
 

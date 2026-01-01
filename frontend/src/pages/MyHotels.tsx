@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
-import { type HotelType } from "../../../backend/src/models/hotel";
+import { type HotelType } from "../../../backend/src/shared/types";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
 

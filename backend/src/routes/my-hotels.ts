@@ -45,7 +45,7 @@ router.post(
 
       newHotel.imageUrls = imageUrls;
       newHotel.lastUpdated = new Date();
-      newHotel.userId = new mongoose.Types.ObjectId(req.userId);
+      newHotel.userId = req.userId;
 
       const hotel = new Hotel(newHotel);
       await hotel.save();
@@ -62,7 +62,7 @@ router.post(
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
-    const hotels = await Hotel.find({ userId: new mongoose.Types.ObjectId(req.userId) });
+    const hotels = await Hotel.find({ userId: req.userId });
     res.json(hotels);
   } catch (error) {
     res.status(500).json({
@@ -77,7 +77,7 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
   try {
     const hotel = await Hotel.findOne({
       _id: id,
-      userId: new mongoose.Types.ObjectId(req.userId),
+      userId: req.userId,
     });
 
     res.json(hotel);
@@ -97,7 +97,7 @@ router.put(
       const hotel = await Hotel.findOneAndUpdate(
         {
           _id: req.params.hotelId,
-          userId: new mongoose.Types.ObjectId(req.userId),
+          userId: req.userId,
         },
         updatedHotel,
         { new: true }

@@ -159,7 +159,7 @@ router.post(
 
       const newBooking: BookingType = {
         ...req.body,
-        userId: new mongoose.Types.ObjectId(req.userId),
+        userId: req.userId,
       };
 
       const hotel = await Hotel.findOneAndUpdate(

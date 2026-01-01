@@ -11,7 +11,7 @@ const LatestDestinationCard = ({ hotel }: Props) => {
       to={`/detail/${hotel._id}`}
       className="relative cursor-pointer overflow-hidden rounded-md"
     >
-      <div className="h-[300px]">
+      <div className="aspect-video w-full">
         <img
           src={hotel.imageUrls[0]}
           alt={hotel.name}

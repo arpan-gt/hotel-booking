@@ -66,6 +66,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
     navigate(`/hotel/${hotelId}/booking`);
   };
 
+
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
       <h3 className="text-md font-bold">${pricePerNight} per night</h3>
@@ -76,6 +77,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
       >
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
+            <h3 className="font-bold mb-1">CheckIn Date:</h3>
             <DatePicker
               required
               selected={checkIn}
@@ -91,6 +93,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
             />
           </div>
           <div>
+            <h3 className="font-bold mb-1">CheckOut Date:</h3>
             <DatePicker
               required
               selected={checkOut}
@@ -105,41 +108,44 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
               wrapperClassName="min-w-full"
             />
           </div>
-          <div className="flex bg-white px-2 py-1 gap-2">
-            <label className="items-center flex">
-              Adults:
-              <input
-                className="w-full p-1 focus:outline-none font-bold"
-                type="number"
-                min={1}
-                max={20}
-                {...register("adultCount", {
-                  required: "This field is required",
-                  min: {
-                    value: 1,
-                    message: "There must be at least one adult",
-                  },
-                  valueAsNumber: true,
-                })}
-              />
-            </label>
-            <label className="items-center flex">
-              Children:
-              <input
-                className="w-full p-1 focus:outline-none font-bold"
-                type="number"
-                min={0}
-                max={20}
-                {...register("childCount", {
-                  valueAsNumber: true,
-                })}
-              />
-            </label>
-            {errors.adultCount && (
-              <span className="text-red-500 font-semibold text-sm">
-                {errors.adultCount.message}
-              </span>
-            )}
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold">Members:</h3>
+            <div className="flex bg-white px-2 py-1 gap-2">
+              <label className="items-center flex">
+                Adults:
+                <input
+                  className="w-full p-1 focus:outline-none font-bold"
+                  type="number"
+                  min={1}
+                  max={20}
+                  {...register("adultCount", {
+                    required: "This field is required",
+                    min: {
+                      value: 1,
+                      message: "There must be at least one adult",
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </label>
+              <label className="items-center flex">
+                Children:
+                <input
+                  className="w-full p-1 focus:outline-none font-bold"
+                  type="number"
+                  min={0}
+                  max={20}
+                  {...register("childCount", {
+                    valueAsNumber: true,
+                  })}
+                />
+              </label>
+              {errors.adultCount && (
+                <span className="text-red-500 font-semibold text-sm">
+                  {errors.adultCount.message}
+                </span>
+              )}
+            </div>
           </div>
           {isLoggedIn ? (
             <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">

@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema<BookingType>({
   totalCost: { type: Number, required: true },
 });
 
-const hotelSchema = new mongoose.Schema<HotelType>({
+const hotelSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String, required: true },
   city: { type: String, required: true },

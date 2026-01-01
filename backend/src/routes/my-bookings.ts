@@ -34,7 +34,7 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
         ...hotel.toObject(),
         userId: hotel.userId.toString(),
         bookings: userBookings.map((booking) => ({
-          ...booking.toObject(),
+          ...(booking as any).toObject(),
           userId: booking.userId.toString(),
         })),
       };

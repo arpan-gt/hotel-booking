@@ -13,8 +13,8 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
 
     // Validate that casting is possible
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-        console.error("Invalid User ID format for casting:", userId);
-        return res.status(400).json({ message: "Invalid User ID format" });
+      console.error("Invalid User ID format for casting:", userId);
+      return res.status(400).json({ message: "Invalid User ID format" });
     }
 
     const objectId = new mongoose.Types.ObjectId(userId);
@@ -45,7 +45,10 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(200).send(results);
   } catch (error) {
     console.log("Error in my-bookings route:", error);
-    res.status(500).json({ message: "Unable to fetch bookings", error: (error as any).message });
+    res.status(500).json({
+      message: "Unable to fetch bookings",
+      error: (error as any).message,
+    });
   }
 });
 

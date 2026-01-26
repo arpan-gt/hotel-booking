@@ -38,7 +38,7 @@ router.post(
       const token = jwt.sign(
         { userId: user._id },
         process.env.JWT_SECRET_KEY as string,
-        { expiresIn: "1d" }
+        { expiresIn: "1d" },
       );
 
       res.cookie("auth_token", token, {
@@ -54,7 +54,7 @@ router.post(
         message: "Something went wrong",
       });
     }
-  }
+  },
 );
 
 router.get("/validate-token", verifyToken, (req: Request, res: Response) => {

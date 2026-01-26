@@ -57,7 +57,7 @@ router.post(
         message: "Something went wrong",
       });
     }
-  }
+  },
 );
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
@@ -100,7 +100,7 @@ router.put(
           userId: req.userId,
         },
         updatedHotel,
-        { new: true }
+        { new: true },
       );
 
       if (!hotel) {
@@ -117,7 +117,7 @@ router.put(
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
     }
-  }
+  },
 );
 
 async function uploadImages(imageFiles: Express.Multer.File[]) {
